@@ -1,0 +1,3 @@
+#+TITLE: Data science stack (airflow, dbt, postgre)
+This project is meant as a learning example for a data science stack. Specifically, upgrading from the local sqlite3 setup to a proper server with orchestration.
+
