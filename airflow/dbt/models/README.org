@@ -1,0 +1,4 @@
+#+TITLE: DBT Models
+DBT models determine the transformations made on tables. These transformations are written via SQL.
+
+The [[./example.sql][./example.sql]] file gives the transformation. The [[./example.yml][example.yml]] file gives a test for the result (e.g. testing for key uniqueness, non nullity etc).

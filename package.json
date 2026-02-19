@@ -1,0 +1,8 @@
+{
+	"scripts":
+	{
+		"postgres-dev:up": "docker compose -f ./docker/compose-dev.yml -p postgres-test up -d",
+		"postgres-dev:down": "docker compose -f ./docker/compose-dev.yml -p postgres-test down",
+		"test": "echo \"Running test...\" && exit 0"
+	}
+}

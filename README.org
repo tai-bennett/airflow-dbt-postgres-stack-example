@@ -1,3 +1,89 @@
-#+TITLE: Data science stack (airflow, dbt, postgre)
+#+TITLE: Data science stack (airflow, dbt, postgres)
 This project is meant as a learning example for a data science stack. Specifically, upgrading from the local sqlite3 setup to a proper server with orchestration.
 
+* Stack Overview
+** Containerization
+There are three main containers in this stack
+1. *Airflow + dbt* handles orchestration and scheduling. Here, dbt is used as a tool instead of a service so transforms are also handled in this container.
+2. *Postgres* is the database
+3. *ML* is a python/pytorch container that handles the model training and saving.
+4. *Inference* is a small service (for now) that provides a simple API for model inference.
+* Prerequisites
+** Docker Engine
+Docker engine was installed using [[https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository][this tutorial]].
+* Resources
+** Postgres + Docker
+- [[https://www.w3tutorials.net/blog/how-to-create-user-database-in-script-for-docker-postgres/][docker + postgres tutorial]]
+** Github examples
+- [[https://github.com/konosp/dbt-airflow-docker-compose/tree/master][dbt-airflow-docker-compose and adminer]]
+
+* Notes
+** Idea for directory structure
+data-platform/
+│
+├── docker-compose.yml        # System wiring
+├── .env                      # Secrets & config
+├── README.md
+│
+├── airflow/                  # Orchestration + dbt
+│   ├── Dockerfile
+│   ├── requirements.txt
+│   │
+│   ├── dags/                 # Pipelines
+│   │   ├── ingest_dag.py
+│   │   ├── transform_dag.py
+│   │   └── train_deploy_dag.py
+│   │
+│   ├── scripts/              # Helper scripts
+│   │   ├── ingest.py
+│   │   └── validate.py
+│   │
+│   └── dbt/                  # dbt project
+│       ├── dbt_project.yml
+│       ├── profiles.yml
+│       └── models/
+│           ├── staging/
+│           └── marts/
+│
+├── postgres/                 # DB bootstrap
+│   └── init.sql
+│
+├── ml/                       # Training service
+│   ├── Dockerfile
+│   ├── requirements.txt
+│   │
+│   ├── config/
+│   │   └── train.yaml
+│   │
+│   ├── src/
+│   │   ├── features.py
+│   │   ├── train.py
+│   │   ├── evaluate.py
+│   │   └── save_model.py
+│   │
+│   └── tests/
+│       └── test_training.py
+│
+├── inference/                # Model serving API
+│   ├── Dockerfile
+│   ├── requirements.txt
+│   │
+│   ├── app/
+│   │   ├── main.py           # FastAPI app
+│   │   ├── schemas.py
+│   │   └── predict.py
+│   │
+│   └── config/
+│       └── service.yaml
+│
+├── models/                   # Shared model storage (volume)
+│   └── .gitkeep
+│
+├── data/                     # Optional local dev data
+│   ├── raw/
+│   └── samples/
+│
+└── scripts/                  # Dev/ops utilities
+    ├── build_all.sh
+    ├── reset_db.sh
+    └── deploy.sh
