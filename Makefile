@@ -1,0 +1,14 @@
+test:
+	echo "Running test ... && exit 0"
+
+postgres-dev-up:
+	docker compose -f ./docker/compose-dev.yml -p postgres-test up -d
+
+postgres-dev-down:
+	docker compose -f ./docker/compose-dev.yml -p postgres-test down
+
+airflow-test-up:
+	docker compose -f ./docker/compose.yml -p airflow-test up -d
+
+airflow-test-down:
+	docker compose -f ./docker/compose.yml -p airflow-test down
