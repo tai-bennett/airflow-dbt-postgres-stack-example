@@ -11,6 +11,23 @@ There are three main containers in this stack
 * Prerequisites
 ** Docker Engine
 Docker engine was installed using [[https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository][this tutorial]].
+*** Arch
+On arch, we have to do this more manually. We start with
+#+BEGIN_SRC bash
+sudo pacman -S docker docker-compose
+#+END_SRC
+Then we have to start the docker daemon. We do this by configuring that the docker daemon start at startup with
+#+BEGIN_SRC bash
+# sudo systemctl start docker.service # this does onetime docker daemon 
+sudo systemctl enable docker.service # this configures for running on startup
+#+END_SRC
+
+We could end here, but then we'd have to use sudo everytime we used docker. To avoid this, we can add the current user to an exception using usermod.
+#+BEGIN_SRC bash
+sudo usermod -aG docker $USER
+#+END_SRC
+
+More info can be found at [[https://itsfoss.com/install-docker-arch-linux][here]]
 * Resources
 ** Postgres + Docker
 - [[https://www.w3tutorials.net/blog/how-to-create-user-database-in-script-for-docker-postgres/][docker + postgres tutorial]]
