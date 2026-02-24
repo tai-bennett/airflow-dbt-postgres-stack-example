@@ -12,3 +12,9 @@ airflow-test-up:
 
 airflow-test-down:
 	docker compose -f ./docker/compose.yml -p airflow-test down
+
+at-up:
+	docker compose -f ./compose_test.yml -p test up -d
+
+at-down:
+	docker compose -f ./compose_test.yml -p test down

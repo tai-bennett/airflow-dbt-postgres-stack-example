@@ -1,11 +1,11 @@
 services:
   airflow:
-    build: ../airflow
+    build: ./airflow
     restart: no
     environment: 
       # DBT_PROFILES_DIR: /dbt
-      AIRFLOW_HOME: ../airflow
-      AIRFLOW__CORE__DAGS_FOLDER: ../airflow/dags
+      AIRFLOW_HOME: /airflow
+      AIRFLOW__CORE__DAGS_FOLDER: /airflow/dags
       AIRFLOW__CORE__LOAD_EXAMPLES: False
       AIRFLOW__CORE__PARALLELISM: 4
       AIRFLOW__CORE__DAG_CONCURRENCY: 4
